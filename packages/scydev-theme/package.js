@@ -22,11 +22,9 @@ Package.onUse(function (api) {
 
   // (Array of files)
   api.addFiles([
-    "styles/base.less",
-    "styles/test.less"
+    "styles/base.less"
   ], "client", {isImport: true});
 
-//  api.addFiles("/path/to/file.less", "client", {isImport: true});
 
   // Add top level .less files
   // These will be processed by your included preprocessors (less, styles, or sass)

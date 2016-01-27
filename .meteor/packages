@@ -86,7 +86,7 @@ reactioncommerce:reaction-sample-data
 
 # Themes
 reactioncommerce:default-theme
-#my:custom-theme
+my:custom-theme
 
 # Forced updates on packages
 jparker:gravatar@0.4.1
