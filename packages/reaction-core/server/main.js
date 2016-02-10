@@ -63,7 +63,7 @@ _.extend(ReactionCore, {
       for (let key in sellerShopPermissions) {
         if ({}.hasOwnProperty.call(sellerShopPermissions, key)) {
           let shop = sellerShopPermissions[key];
-          if (Roles.userIsInRole(checkUserId, permissions, shop)) {
+          if (Roles.userIsInRole(userId, permissions, shop)) {
             return true;
           }
         }
@@ -77,7 +77,7 @@ _.extend(ReactionCore, {
     return this.hasPermission(ownerPermissions);
   },
   hasAdminAccess: function () {
-    let adminPermissions = ["owner", "admin"];
+    let adminPermissions = ["admin"];
     return this.hasPermission(adminPermissions);
   },
   hasDashboardAccess: function () {

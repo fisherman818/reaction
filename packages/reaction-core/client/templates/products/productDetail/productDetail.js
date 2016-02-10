@@ -101,8 +101,6 @@ Template.productDetail.events({
     }
   },
   "click #add-to-cart": function (event, template) {
-    let cartId;
-    let count;
     let options;
     let productId;
     let qtyField;
@@ -155,24 +153,17 @@ Template.productDetail.events({
           autoHide: 10000
         });
       } else {
-        cartId = ReactionCore.Collections.Cart.findOne()._id;
         productId = currentProduct._id;
 
-        if (cartId && productId) {
-          count = ReactionCore.Collections.Cart.findOne(cartId).cartCount() || 0;
-
-          Meteor.call("cart/addToCart", cartId, productId, currentVariant, quantity, function (error) {
-            let address;
-            if (!error && count === 0) {
-              address = Session.get("address");
-              if (!address) {
-                return locateUser();
+        if (productId) {
+          Meteor.call("cart/addToCart", productId, currentVariant._id, quantity,
+            function (error) {
+              if (error) {
+                ReactionCore.Log.error("Failed to add to cart.", error);
+                return error;
               }
-            } else if (error) {
-              ReactionCore.Log.error("Failed to add to cart.", error);
-              return error;
             }
-          });
+          );
         }
 
         template.$(".variant-select-option").removeClass("active");
@@ -225,6 +216,40 @@ Template.productDetail.events({
       });
     } else {
       Meteor.call("products/publishProduct", self._id, function (error) {
+        if (error) {
+          return Alerts.add(error.reason, "danger", {
+            placement: "productManagement",
+            id: self._id,
+            i18nKey: "productDetail.errorMsg"
+          });
+        }
+      });
+    }
+  },
+  "click .toggle-product-isActive-link": function (event, template) {
+    let errorMsg = "";
+    const self = this;
+    if (!self.title) {
+      errorMsg += "Product title is required. ";
+      template.$(".title-edit-input").focus();
+    }
+    let variants = self.variants;
+    for (let variant of variants) {
+      let index = _.indexOf(variants, variant);
+      if (!variant.title) {
+        errorMsg += "Variant " + (index + 1) + " label is required. ";
+      }
+      if (!variant.price) {
+        errorMsg += "Variant " + (index + 1) + " price is required. ";
+      }
+    }
+    if (errorMsg.length > 0) {
+      Alerts.add(errorMsg, "danger", {
+        placement: "productManagement",
+        i18nKey: "productDetail.errorMsg"
+      });
+    } else {
+      Meteor.call("products/activateProduct", self._id, function (error) {
         if (error) {
           return Alerts.add(error.reason, "danger", {
             placement: "productManagement",

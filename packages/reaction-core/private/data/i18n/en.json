@@ -9,6 +9,7 @@
       "app": {
         "save": "Save",
         "saveAndContinue": "Save and continue",
+        "saveChanges": "Save Changes",
         "cancel": "Cancel",
         "submit": "Submit",
         "delete": "Delete",
@@ -20,11 +21,18 @@
         "warning": "Oops!",
         "unauthorizedMessage": "You don't have permission to view this content.",
         "monthOptions": "Choose month",
-        "yearOptions": "Chose year",
+        "yearOptions": "Choose year",
         "timezoneOptions": "Choose timezone",
         "shopSettings": "Shop Settings",
         "dashboard": "Dashboard",
         "print": "Print"
+      },
+      "shopSettings": {
+        "general": "General",
+        "address": "Address",
+        "mail": "Mail",
+        "localization": "Localization",
+        "options": "Options"
       },
       "header": {
         "tagsAdd": "Add tag",
@@ -127,6 +135,7 @@
         "filter": {
           "new": "New",
           "captured": "Payment Captured",
+          "processing": "Processing",
           "shipped": "Shipped",
           "completed": "Completed",
           "canceled": "Canceled",
@@ -160,7 +169,7 @@
       "checkoutLogin": {
         "welcome": "Welcome, it's so good to see you.",
         "loginCompleted": "Account completed",
-        "createOrLogin": "Create an acccount, or sign in",
+        "createOrLogin": "Create an account, or sign in",
         "guestOrLogin": "Sign in, or checkout as a guest",
         "continueAsGuest": "Continue as Guest",
         "guestMessage": "You can checkout without creating an account. You'll have a chance to create an account later."
@@ -202,7 +211,9 @@
       "checkoutPayment": {
         "addPaymentToCompleteOrder": "Add payment to complete order",
         "processingError": "There was a problem with your payment.",
-        "completeYourOrder": "Complete your order"
+        "completeYourOrder": "Complete your order",
+        "noPaymentMethods": "No payment methods are configured.",
+        "configureNow": "Configure now."
       },
       "checkoutReview": {
         "review": "Review"
@@ -299,6 +310,7 @@
           "passwordRequired": "Password is required.",
           "passwordMustBeAtLeast6CharactersLong": "Password must be at least 6 characters long.",
           "passwordMustContainRequirements": "Password must contain at least one number or symbol",
+          "invalidIsSeller": "Seller flag must be true or false",
           "minChar": "6 character minimum password.",
           "pwdsDontMatch": "Passwords don't match",
           "pwOneDigit": "Password must have at least one digit.",
@@ -308,6 +320,7 @@
           "signupCodeRequired": "Registration code is required.",
           "usernameIsEmail": "Username cannot be an email address.",
           "usernameRequired": "Username is required.",
+          "usernameTooShort": "Name must be at least 3 characters long.",
           "emailAlreadyExists": "Email already exists.",
           "emailDoesntMatchTheCriteria": "Email doesn't match the criteria.",
           "invalidLoginToken": "Invalid login token",
