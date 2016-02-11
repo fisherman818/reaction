@@ -9,8 +9,8 @@ Template.newLayoutHeader.events({
       "src"));
   },
   
-  "change #files": uploadHandler,
-  "dropped #dropzone": uploadHandler
+ /*"change #files": uploadHandler,
+  "dropped #dropzone": uploadHandler*/
   
 });
 
