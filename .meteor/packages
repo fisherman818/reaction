@@ -20,6 +20,7 @@ ecmascript              # Enable ECMAScript2015+ syntax in app code
 
 # Meteor Community Packages
 
+
 logging
 reload
 random
@@ -91,3 +92,6 @@ dburles:google-maps
 scydev:reaction-p2p-marketplace-locations
 
 meteortoys:allthings
+ramusus:reaction-flat-pages
+aldeed:template-extension
+scydev:reaction-branding-media
