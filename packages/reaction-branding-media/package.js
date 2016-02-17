@@ -36,8 +36,8 @@ Package.onUse(function(api) {
   
   // First initialize html file! otherwise there will be an error 'undefined'
   api.addFiles(['newLayoutHeader.html',
-                'newLayoutHeader.js',
-                'reaction-branding-media.js'
+                'reaction-branding-media.js',
+                'newLayoutHeader.js'
                 ],
                 'client');
 });
