@@ -1,12 +1,12 @@
 <!-- For my own upload --------------------------------------------------------------------------------------------------------------------->
 
 <template name="newLayoutHeader">
-  <div id="headerImage" class="headerImage">
-      {{#each media}}
-        {{> imageDetail}}
+  <div id="headerImage" class="headerImage">:
+    {{# if Media}}
+        {{>headerImageUploaded}}
       {{else}}
           <img src= "/resources/placeholder.gif" class="img-responsive" id="img-upload-header">
-      {{/each}}
+        {{/if}}
     {{>headerImageUploader}}
     <input name="headerImageUpload" id="headerImageUpload" class="hidden" type="file" multiple/>
   </div>
@@ -30,10 +30,24 @@
 </template>
 
 
-
 <template name="headerImageUploader">
   <div id="dropzone" class="dropzone">
-   <input name="headerImageUpload" id="headerImageUpload" class="hidden" type="file" multiple/>
+       <input name="headerImageUpload" id="headerImageUpload" class="hidden" type="file" multiple/>
     <div class="btn btn-default btn-block" id="btn-upload-header" data-i18n="productDetail.dropFile">Drop file to upload</div>
   </div>
+</template>
+
+<template name="headerImageUploaded">
+  ACTIVE!!
+  {{# each UploadedLogo}}
+    <a href="{{this.url}}" target="_blank"><img src="{{this.url store='large' uploading='/resources/placeholder.gif' storing='/resources/placeholder.gif' }}" class="img-responsive"></a>
+    {{/each}}
+    {{#unless this.isUploaded}}
+      {{> FS.UploadProgressBar bootstrap=true}}
+    {{/unless}}
+    {{#if hasPermission "createProduct"}}
+      <div class="gallery-tools">
+        <a class="image-remove-link" data-index="{{_id}}"><i class="remove-image fa fa-times-circle fa-2x"></i></a>
+      </div>
+    {{/if}}
 </template>

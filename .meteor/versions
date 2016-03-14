@@ -6,7 +6,7 @@ accounts-oauth@1.1.8
 accounts-password@1.1.4
 accounts-twitter@1.0.6
 accounts-weibo@1.0.6
-alanning:roles@1.2.14
+alanning:roles@1.2.15
 aldeed:autoform@5.8.1
 aldeed:collection2@2.6.1
 aldeed:simple-schema@1.5.1
@@ -52,7 +52,7 @@ cfs:upload-http@0.0.20
 cfs:worker@0.1.4
 check@1.1.0
 coffeescript@1.0.11
-cosmos:browserify@0.9.3
+cosmos:browserify@0.10.0
 dburles:google-maps@1.1.5
 dburles:mongo-collection-instances@0.3.4
 ddp@1.2.2
@@ -158,7 +158,7 @@ rate-limit@1.0.0
 reactioncommerce:core@0.11.0
 reactioncommerce:core-theme@2.0.1
 reactioncommerce:default-theme@1.0.3
-reactioncommerce:launchdock-connect@0.1.4
+reactioncommerce:launchdock-connect@0.1.5
 reactioncommerce:reaction-accounts@1.6.1
 reactioncommerce:reaction-analytics@1.2.1
 reactioncommerce:reaction-analytics-libs@1.1.0

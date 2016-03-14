@@ -1,4 +1,35 @@
 // Write your package code here!
+/*Template.newLayoutHeader.inheritsEventsFrom("layoutHeader");
+Template.newLayoutHeader.inheritsHooksFrom("layoutHeader");
+Template.newLayoutHeader.inheritsHelpersFrom("layoutHeader");*/
+Template.newLayoutHeader.replaces("layoutHeader");
+
+
+var Media;
+Media = ReactionCore.Collections.Media;
+
+Template.layoutHeader.helpers({
+  Media: function() {
+    return Media.find({"metadata.objName" : "logo"});
+  }
+});
+
+
+Template.headerImageUploaded.helpers({
+  Media: function(){
+    return Media.find({"metadata.objName" : "logo"});
+  },
+  UploadedLogo: function() {
+    return Media.find({"metadata.objName" : "logo"});
+  }
+});
+
+Template.headerImageUploader.helpers({
+  Media: function(){
+    return Media.find({"metadata.objName" : "logo"});
+
+    }
+});
 
 Template.newLayoutHeader.events({
   "click #img-upload-header": function () {
@@ -8,10 +39,10 @@ Template.newLayoutHeader.events({
     return Session.set("variantImgSrc", template.$(".img-responsive").attr(
       "src"));
   },
-  
+
  "change #headerImageUpload": headerUploadHandler,
   "dropped #dropzone": headerUploadHandler
-  
+
 });
 
 
@@ -24,31 +55,19 @@ Template.headerImageUploader.events({
 });
 
 function headerUploadHandler(event) {
-  let shopId = ReactionCore.getShopId();
-  let userId = Meteor.userId();
-  let count = Media.find({
-    "metadata.variantId": variantId
-  }).count();
+  var shopId = ReactionCore.getShopId();
+  var userId = Meteor.userId();
 
   return FS.Utility.eachFile(event, function (file) {
-    let fileObj;
+    var fileObj;
     fileObj = new FS.File(file);
     fileObj.metadata = {
       ownerId: userId,
       shopId: shopId,
-      priority: count
+      objName: "logo"
     };
     Media.insert(fileObj);
-    return count++;
+    console.log('Uploadfinished')
+    return;
   });
 }
-
-Template.newLayoutHeader.inheritsEventsFrom("layoutHeader");
-Template.newLayoutHeader.inheritsHooksFrom("layoutHeader");
-Template.newLayoutHeader.inheritsHelpersFrom("layoutHeader");
-Template.newLayoutHeader.replaces("layoutHeader");
-
-
-Template.headerImageUploader.inheritsEventsFrom("imageUploader");
-Template.headerImageUploader.inheritsHooksFrom("imageUploader");
-Template.headerImageUploader.inheritsHelpersFrom("imageUploader");

@@ -12,7 +12,7 @@ Package.describe({
 
 Package.onUse(function(api) {
   api.versionsFrom('1.2.1');
-  
+
   // meteor base packages
   api.use("standard-minifiers");
   api.use("mobile-experience");
@@ -29,15 +29,19 @@ Package.onUse(function(api) {
   api.use("spacebars");
   api.use("check");
 
+  api.use("cfs:standard-packages@0.5.9");
+
   api.use('ecmascript');
   api.use('templating');
   api.use("less");
   api.use("reactioncommerce:core@0.10.0");
-  
+
+
   // First initialize html file! otherwise there will be an error 'undefined'
   api.addFiles(['newLayoutHeader.html',
-                'reaction-branding-media.js',
-                'newLayoutHeader.js'
+                'test.html',
+                'test.js',
+                'reaction-branding-media.js'
                 ],
                 'client');
 });
