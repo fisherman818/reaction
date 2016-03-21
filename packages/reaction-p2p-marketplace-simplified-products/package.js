@@ -36,14 +36,14 @@ Package.onUse(function(api) {
 
   api.use("aldeed:template-extension");
 
+  api.use("scydev:reaction-p2p-marketplace-seller");
+
   api.addFiles([
                 'reaction-p2p-marketplace-simplified-products.js',
-                'client/templates/products/productDetail/productDetailHideVariants.html',
                 'client/templates/products/productDetail/productDetailHideVariants.js',
-                'client/templates/cart/checkout/shipping/shipping.html',
                 'client/templates/cart/checkout/shipping/shipping.js',
-                'client/templates/cart/payment/methods/cod/cod.html',
-                'client/templates/cart/payment/methods/cod/cod.js',
+                'client/templates/products/productDetail/tags/tags.html',
+                'client/templates/products/productDetail/tags/tags.js',
               ],
               'client'
               );

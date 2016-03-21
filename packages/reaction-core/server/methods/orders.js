@@ -414,21 +414,22 @@ Meteor.methods({
   /**
    * orders/addOrderEmail
    * @summary Adds email to order, used for guest users
-   * @param {String} orderId - add tracking to orderId
+   * @param {String} cartId - add tracking to orderId
    * @param {String} email - valid email address
    * @return {String} returns order update result
    */
-  "orders/addOrderEmail": function (orderId, email) {
-    check(orderId, String);
+  "orders/addOrderEmail": function (cartId, email) {
+    check(cartId, String);
     check(email, String);
-    return ReactionCore.Collections.Orders.update(orderId, {
+
+    return ReactionCore.Collections.Orders.update({cartId: cartId}, {
       $set: {
         email: email
       }
     });
   },
   /**
-   * orders/addOrderEmail
+   * orders/updateDocuments
    * @summary Adds file, documents to order. use for packing slips, labels, customs docs, etc
    * @param {String} orderId - add tracking to orderId
    * @param {String} docId - CFS collection docId
@@ -481,19 +482,44 @@ Meteor.methods({
    */
   "orders/inventoryAdjust": function (orderId) {
     check(orderId, String);
-    let order = ReactionCore.Collections.Orders.findOne(orderId);
+    const order = ReactionCore.Collections.Orders.findOne(orderId);
+    ReactionCore.Log.info("orders/inventoryAdjust orderId ",orderId," ");
+    order.items.forEach(item => {
+      ReactionCore.Log.info("orders/inventoryAdjust item.variants._id ",item.variants._id," by ",-item.quantity," item.inventoryQuantity: ",item.variants.inventoryQuantity);
+      ReactionCore.Log.info("orders/inventoryAdjust item.inventoryQuantity: ",item.variants.inventoryQuantity," ");
 
-    _.each(order.items, function (product) {
+      let currVariant = ReactionCore.Collections.Products.findOne({_id: item.variants._id, type: "variant"});
+      ReactionCore.Log.info("orders/inventoryAdjust OLO 1 ",);
+      if (currVariant) {
+        ReactionCore.Log.info("orders/inventoryAdjust OLO 2 currVariant.inventoryQuantity ",currVariant.inventoryQuantity);
+        if (currVariant.inventoryQuantity - item.quantity < 1) {
+          ReactionCore.Log.info("orders/inventoryAdjust OLO 2.1 ",);
+          ReactionCore.Collections.Products.update({
+            _id: item.productId
+          }, {
+            $set: {
+              isSoldOut: true
+            }
+          }, { selector: { type: "simple" } });
+          ReactionCore.Log.info("orders/inventoryAdjust OLO 2.2 ",);
+        }
+      }
+      ReactionCore.Log.info("orders/inventoryAdjust OLO 3 ",);
+
+      ReactionCore.Log.info("orders/inventoryAdjust OLO 4 ",);
+
       ReactionCore.Collections.Products.update({
-        "_id": product.productId,
-        "variants._id": product.variants._id
+        _id: item.variants._id
       }, {
         $inc: {
-          "variants.$.inventoryQuantity": -product.quantity
+          inventoryQuantity: -item.quantity
         }
-      });
+      }, { selector: { type: "variant" } });
+
+      // WTF? why is this never printed?
+      ReactionCore.Log.info("orders/inventoryAdjust OLO 5 ",);
+
     });
-    return;
   },
 
   /**
@@ -542,7 +568,7 @@ Meteor.methods({
               }
             });
           } else {
-            ReactionCore.Log.error("Failed to capture transaction.", order, paymentMethod.transactionId, result.error.stack);
+            ReactionCore.Log.error("Failed to capture transaction.", order, paymentMethod.transactionId, result.error);
 
             ReactionCore.Collections.Orders.update({
               "_id": orderId,
@@ -582,6 +608,7 @@ Meteor.methods({
       if (error) {
         future.return(error);
       } else {
+        check(result, [ReactionCore.Schemas.Refund]);
         future.return(result);
       }
     });
