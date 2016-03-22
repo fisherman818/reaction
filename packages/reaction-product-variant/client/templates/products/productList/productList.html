@@ -14,7 +14,7 @@
             </a>
           </td>
           <td>
-            <div><h3>{{title}}</h3></div>
+            <div><h3>{{value}}</h3></div>
             <div>{{{description}}}</div>
           </td>
           <td>
@@ -22,7 +22,7 @@
             <div><h3>{{formatPrice variants.[0].price}}</h3></div>
             <!-- using price from grid. -->
             <div class="currency-symbol"><h3>{{formatPrice displayPrice}}</h3></div>
-            
+
             {{#if cart.showItemLowInventoryWarning variants.[0]}}
             <div class="badge badge-low-inv-warning">{{variants.[0].inventoryQuantity}} Left!</div>
             {{/if}}
