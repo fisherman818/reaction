@@ -100,6 +100,7 @@ Template.productGrid.helpers({
     return ReactionCore.Collections.Products.find().count() >= Session.get("productScrollLimit");
   },
   products: function () {
+    return Session.get('ProductList');
     /*
      * take natural sort, sorting by updatedAt
      * then resort using positions.position for this tag
