@@ -303,7 +303,22 @@ Template.tagNav.events({
         instance.state.set("selectedTag", TagNavHelpers.tagById(tagId, tags));
       }
     }
+
   },
+
+  "click .navbar-item": function(e){
+    var tagId = $(e.target).attr("data-id");
+    console.log(tagId);
+    Meteor.call('productsInTabs', tagId, function(error, result){
+      if(error){
+        console.log(error)
+      }else{
+        console.log(result);
+        Session.set('ProductList', result);
+      }
+    })
+  },
+
 
   "mouseover .navbar-item, focus .navbar-item"(event, instance) {
     const tagId = event.currentTarget.dataset.id;
